@@ -1,5 +1,5 @@
-import { Controller, Post, Body, Get, Query } from '@nestjs/common';
-import { ApiTags, ApiCreatedResponse, ApiBadRequestResponse, ApiOperation} from '@nestjs/swagger';
+import { Controller, Post, Body, Get, Query, Delete, Param } from '@nestjs/common';
+import { ApiTags, ApiCreatedResponse, ApiBadRequestResponse, ApiOperation, ApiNoContentResponse} from '@nestjs/swagger';
 import { BadRequestResponse } from '../exceptions/bad-request.response';
 import { PageOptionsDto } from '../shared/paginate-options.dto';
 import { ApiPaginatedResponse } from 'src/decorators/pagination.decorator';
@@ -49,5 +49,13 @@ export class UserController {
       },
     };
     return response;
+  }
+
+  @Delete(':id')
+  @ApiNoContentResponse({ description: 'User deleted successfully' })
+  @ApiBadRequestResponse({ description: 'Bad Request', type: BadRequestResponse })
+  @ApiOperation({ summary: 'Deletes a user' })
+  async delete(@Param('id') id: string): Promise<void> {
+    await this.userService.delete(id);
   }
 }

@@ -29,9 +29,8 @@ export default class UserRepository implements UserRepositoryInterface{
     console.log(entity);
     throw new Error("Method not implemented.");
   }
-  async delete(entity: User): Promise<void> {
-    console.log(entity);
-    throw new Error("Method not implemented.");
+  async delete(id: string): Promise<void> {
+    await UserModel.destroy({ where: { id } });
   }
   async findById(id: string): Promise<User> {
     console.log(id);

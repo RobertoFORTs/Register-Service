@@ -17,8 +17,12 @@ export class UserService {
     return result;
   }
 
-  findAll(paginateOptions: PageOptionsDto) {
-    const result = this.repository.findAll(paginateOptions);
+  public async delete(id: string): Promise<void> {
+    await this.repository.delete(id);
+  }
+  
+  async findAll(paginateOptions: PageOptionsDto) {
+    const result = await this.repository.findAll(paginateOptions);
     return result;
   }
 }
