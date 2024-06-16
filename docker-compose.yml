@@ -1,0 +1,10 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: tads_user
+      POSTGRES_PASSWORD: tadsadmin
+      POSTGRES_DB: tads
+    ports:
+      - "5432:5432"
