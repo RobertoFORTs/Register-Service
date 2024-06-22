@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { config } from 'dotenv';
 import { PaginateModule } from 'nestjs-sequelize-paginate'
 import { UserModule } from './domain/user/user.module';
+import { MailModule } from './domain/mail/mail.module';
 
 config();
 @Module({
@@ -23,6 +24,7 @@ config();
       url: 'http://localhost:3000',
     }),
     UserModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [AppService]

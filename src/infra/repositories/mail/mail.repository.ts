@@ -3,13 +3,10 @@ import MailModel from "./mail.model";
 import Mail from "src/domain/mail/entity/mail";
 import MailRepositoryInterface from "src/domain/mail/repositoy/mail.repository.interface";
 import { PageOptionsDto } from "src/api/shared/paginate-options.dto";
-import { PaginateService } from 'nestjs-sequelize-paginate';
 @Injectable()
 export class MailRepository implements MailRepositoryInterface {
 
-  constructor(
-    private paginationService: PaginateService,
-  ) {}
+  constructor() {}
   
   async create(mail: Partial<Mail>): Promise<Mail> {
     const emailLog = await MailModel.create(mail);
