@@ -31,6 +31,8 @@
     "dotenv": "^16.4.5",
     "mysql2": "^3.9.7",
     "nestjs-sequelize-paginate": "^1.0.0",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^6.9.14",
     "pg": "^8.11.5",
     "pg-hstore": "^2.3.4",
     "reflect-metadata": "^0.2.0",
