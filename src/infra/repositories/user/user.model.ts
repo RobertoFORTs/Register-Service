@@ -25,6 +25,6 @@ export default class UserModel extends Model {
   @Column(DataType.STRING)
   email: string;
 
-  @Column(DataType.ENUM("DAILY", "WEEKLY", "MONTHLY", "SEMESTERLY"))
+  @Column(DataType.ENUM("WEEKLY", "BIWEEKLY", "MONTHLY", "SEMESTERLY"))
   frequency: Frequency;
 }

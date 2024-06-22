@@ -14,11 +14,11 @@ export class MailService {
 
   async scheduleEmails(user: User): Promise<void> {
     switch (user.getFrequency) {
-      case 'DAILY':
-        this.scheduleDailyEmail(user.getId, user.getFrequency, user.getEmail);
-        break;
       case 'WEEKLY':
         this.scheduleWeeklyEmail(user.getId, user.getFrequency, user.getEmail);
+        break;
+      case 'BIWEEKLY':
+        this.scheduleBiWeeklyEmail(user.getId, user.getFrequency, user.getEmail);
         break;
       case 'MONTHLY':
         this.scheduleMonthlyEmail(user.getId, user.getFrequency, user.getEmail);
@@ -31,8 +31,8 @@ export class MailService {
     }
   }
 
-  @Cron(CronExpression.EVERY_DAY_AT_10AM)
-  async scheduleDailyEmail(userId: string, emailType: Frequency, email: string): Promise<void> {
+  @Cron(CronExpression.EVERY_WEEK)
+  async scheduleWeeklyEmail(userId: string, emailType: Frequency, email: string): Promise<void> {
     const date = new Date();
     const existingEmails = await this.mailRepository.findOne({ userId, date });
     if (existingEmails) {
@@ -41,8 +41,8 @@ export class MailService {
     await this.sendEmail(userId, emailType, email);
   }
 
-  @Cron(CronExpression.EVERY_WEEK)
-  async scheduleWeeklyEmail(userId: string, emailType: Frequency, email: string): Promise<void> {
+  @Cron('0 0 15 * *')
+  async scheduleBiWeeklyEmail(userId: string, emailType: Frequency, email: string): Promise<void> {
     const date = new Date();
     const existingEmails = await this.mailRepository.findOne({ userId, date });
     if (existingEmails) {
