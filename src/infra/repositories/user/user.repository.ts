@@ -33,8 +33,8 @@ export default class UserRepository implements UserRepositoryInterface{
     await UserModel.destroy({ where: { id } });
   }
   async findById(id: string): Promise<User> {
-    console.log(id);
-    throw new Error("Method not implemented.");
+    const user = await UserModel.findByPk(id);
+    return new User(user.name, user.email, user.frequency, user.id);
   }
 
   async findAll(paginateOptions: PageOptionsDto) {

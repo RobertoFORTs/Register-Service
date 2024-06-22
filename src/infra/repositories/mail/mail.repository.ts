@@ -9,11 +9,11 @@ export class MailRepository implements MailRepositoryInterface {
 
   constructor(
     private paginationService: PaginateService,
-  ) { }
+  ) {}
   
   async create(mail: Partial<Mail>): Promise<Mail> {
     const emailLog = await MailModel.create(mail);
-    const mailEntityReturn: Mail = new Mail(emailLog.id,  emailLog.userId, emailLog.sentAt, emailLog.id);
+    const mailEntityReturn: Mail = new Mail( emailLog.userId, emailLog.sentAt, emailLog.emailType, emailLog.id);
     return mailEntityReturn;
   }
 

@@ -4,7 +4,7 @@ export default class Mail {
   sentAt: Date;
   emailType: string;
 
-  constructor(id: string, userId: string, sentAt: Date, emailType: string) {
+  constructor(userId: string, sentAt: Date, emailType: string, id?: string) {
     this.id = id;
     this.userId = userId;
     this.sentAt = sentAt;
