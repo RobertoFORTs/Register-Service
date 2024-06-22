@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Frequency } from "./enums/frequency";
 
 export default class User {
   @ApiProperty()
@@ -10,14 +11,14 @@ export default class User {
   @ApiProperty()
   private email: string;
 
-  @ApiProperty()
-  private password: string;
-  
-  constructor(name: string, email: string, password: string, id?: string,) {
+  @ApiProperty({ enum: Frequency })
+  private frequency: Frequency;
+
+  constructor(name: string, email: string, frequency: Frequency, id?: string,) {
     this.id = id;
     this.name = name;
     this.email = email;
-    this.password = password;
+    this.frequency = frequency;
   }
 
 
@@ -44,11 +45,11 @@ export default class User {
     this.name = value;
   }
 
-  public get getPassword(): string {
-    return this.password;
+  public get getFrequency(): Frequency {
+    return this.frequency;
   }
   
-  public set setPassword(value: string) {
-    this.password = value;
+  public set setFrequency(value: Frequency) {
+    this.frequency = value;
   }
 }

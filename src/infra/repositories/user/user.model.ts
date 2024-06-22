@@ -7,7 +7,7 @@ import {
   IsUUID,
   Default,
 } from "sequelize-typescript";
-
+import { Frequency } from "src/domain/user/entity/enums/frequency";
 @Table({
   tableName: "user",
   timestamps: false,
@@ -25,6 +25,6 @@ export default class UserModel extends Model {
   @Column(DataType.STRING)
   email: string;
 
-  @Column(DataType.STRING)
-  password: string;
+  @Column(DataType.ENUM("DAILY", "WEEKLY", "MONTHLY", "SEMESTERLY"))
+  frequency: Frequency;
 }
