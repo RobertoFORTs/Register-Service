@@ -5,6 +5,7 @@ import Mail from "src/domain/mail/entity/mail";
 import User from "src/domain/user/entity/user";
 import { Cron, CronExpression } from '@nestjs/schedule';
 import * as nodemailer from "nodemailer";
+import axios from "axios";
 @Injectable()
 export class MailService {
   constructor(
@@ -33,21 +34,41 @@ export class MailService {
 
   @Cron(CronExpression.EVERY_DAY_AT_10AM)
   async scheduleDailyEmail(userId: string, emailType: string): Promise<void> {
+    const date = new Date();
+    const existingEmails = await this.mailRepository.findOne({ userId, date });
+    if (existingEmails) {
+      throw new Error("Email already sent today.");
+    }
     await this.sendEmail(userId, emailType);
   }
 
   @Cron(CronExpression.EVERY_WEEK)
   async scheduleWeeklyEmail(userId: string, emailType: string): Promise<void> {
+    const date = new Date();
+    const existingEmails = await this.mailRepository.findOne({ userId, date });
+    if (existingEmails) {
+      throw new Error("Email already sent today.");
+    }
     await this.sendEmail(userId, emailType);
   }
 
   @Cron('0 0 1 * *')
   async scheduleMonthlyEmail(userId: string, emailType: string): Promise<void> {
+    const date = new Date();
+    const existingEmails = await this.mailRepository.findOne({ userId, date });
+    if (existingEmails) {
+      throw new Error("Email already sent today.");
+    }
     await this.sendEmail(userId, emailType);
   }
 
   @Cron('0 0 1 1,7 *') 
   async scheduleSemesterlyEmail(userId: string, emailType: string): Promise<void> {
+    const date = new Date();
+    const existingEmails = await this.mailRepository.findOne({ userId, date });
+    if (existingEmails) {
+      throw new Error("Email already sent today.");
+    }
     await this.sendEmail(userId, emailType);
   }
 
@@ -60,6 +81,15 @@ export class MailService {
     const user: User = await this.userService.findById(userId);
     if (!user) {
       throw new Error("User not found.");
+    }
+
+    let reportData;
+    try {
+      const response = await axios.get('http://localhost:8080/climate?page=1&take=1');
+      reportData = response.data;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Error fetching weather report.");
     }
 
     const now = new Date();
@@ -78,7 +108,7 @@ export class MailService {
       from: '"NewsLetter Wheater" <testebobvini123@gmail.com>',
       to: user.getEmail, 
       subject: "Relatório do Tempo", 
-      text: "INTEGRAÇÃO COM API DE TEMPO AQUI", 
+      text: `Aqui estão os dados do tempo: ${reportData}`, 
     };
 
     try {
