@@ -16,7 +16,12 @@ export class UserService {
     const { name, email, frequency } = createUserDto;
     const user = new User(name, email, frequency);
     const result: User = await this.repository.create(user);
-    await this.mailService.scheduleEmails(result);
+    try {
+      await this.mailService.scheduleEmails(result);
+    } catch (error) {
+      console.error(error);
+      throw new Error('Error scheduling emails');
+    }
     return result;
   }
 

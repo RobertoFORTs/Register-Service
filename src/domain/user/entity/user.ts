@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Frequency } from "./enums/frequency";
+import { IsEnum } from "class-validator";
 
 export default class User {
   @ApiProperty()
@@ -11,7 +12,13 @@ export default class User {
   @ApiProperty()
   private email: string;
 
-  @ApiProperty({ enum: Frequency })
+  @IsEnum(Frequency)
+  @ApiProperty({
+    example: Frequency.WEEKLY,
+    description: 'Tipo de anunciante',
+    enum: Frequency,
+    default: Frequency.MONTHLY,
+  })
   private frequency: Frequency;
 
   constructor(name: string, email: string, frequency: Frequency, id?: string,) {

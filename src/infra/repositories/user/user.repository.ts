@@ -15,7 +15,7 @@ export default class UserRepository implements UserRepositoryInterface{
       const newUser: UserModel = await UserModel.create({
         name: entity.getName,
         email: entity.getEmail,
-        password: entity.getFrequency,
+        frequency: entity.getFrequency,
       });
       const userEntityReturn: User = new User (newUser.name, newUser.email, newUser.frequency, newUser.id);
       return userEntityReturn;

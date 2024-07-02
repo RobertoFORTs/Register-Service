@@ -35,6 +35,7 @@ export class MailService {
   async scheduleWeeklyEmail(userId: string, emailType: Frequency, email: string): Promise<void> {
     const date = new Date();
     const existingEmails = await this.mailRepository.findOne({ userId, date });
+    console.log('Procurei por emails existentes');
     if (existingEmails) {
       throw new Error("Email already sent today.");
     }
@@ -77,10 +78,9 @@ export class MailService {
       throw new Error("Invalid email type.");
     }
 
-
     let reportData;
     try {
-      const response = await axios.get('http://localhost:8080/climate');
+      const response = await axios.get('http://localhost:3001/climate');
       reportData = response.data;
     } catch (error) {
       console.error(error);

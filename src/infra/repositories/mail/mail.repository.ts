@@ -31,7 +31,8 @@ export class MailRepository implements MailRepositoryInterface {
   }
 
   async findOne(filter): Promise<any> {
-    const { sentAt, userId } = filter;
+    const { date, userId } = filter;
+    const sentAt = date;
     const returnObject = await MailModel.findOne(
       {
         where: {
