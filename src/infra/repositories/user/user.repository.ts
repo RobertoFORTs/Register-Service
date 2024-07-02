@@ -16,8 +16,12 @@ export default class UserRepository implements UserRepositoryInterface{
         name: entity.getName,
         email: entity.getEmail,
         frequency: entity.getFrequency,
+        city: entity.getCity,
+        stateCode: entity.getStateCode,
+        countryCode: entity.getCountryCode,
+        zip: entity.getZip,
       });
-      const userEntityReturn: User = new User (newUser.name, newUser.email, newUser.frequency, newUser.id);
+      const userEntityReturn: User = new User (newUser.name, newUser.email, newUser.frequency, newUser.city, newUser.stateCode, newUser.countryCode, newUser.zip, newUser.id);
       return userEntityReturn;
     } catch (error) {
       console.error(error);

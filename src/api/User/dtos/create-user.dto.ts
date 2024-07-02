@@ -10,4 +10,16 @@ export class CreateUserDto {
 
   @ApiProperty({ enum: Frequency, required: true })
   frequency: Frequency;
+
+  @ApiProperty()
+  city: string;
+
+  @ApiProperty()
+  stateCode?: string;
+
+  @ApiProperty()
+  countryCode?: string;
+
+  @ApiProperty()
+  zip?: string;
 }

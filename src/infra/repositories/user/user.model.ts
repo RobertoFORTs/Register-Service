@@ -27,4 +27,16 @@ export default class UserModel extends Model {
 
   @Column(DataType.ENUM("WEEKLY", "BIWEEKLY", "MONTHLY", "SEMESTERLY"))
   frequency: Frequency;
+
+  @Column(DataType.STRING)
+  city: string;
+
+  @Column(DataType.STRING)
+  stateCode: string;
+
+  @Column(DataType.STRING)
+  countryCode: string;
+
+  @Column(DataType.STRING)
+  zip: string;
 }
