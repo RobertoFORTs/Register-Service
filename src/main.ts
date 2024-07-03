@@ -14,7 +14,7 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
-    .setTitle('API Climatic Consumer')
+    .setTitle('Newsletter Service API')
     .setDescription(
       'Documentação que reúne os endpoints da API Climatic Consumer, que consome a API OpenWeatherMap e retorna informações climáticas de uma cidade específica.',
     )

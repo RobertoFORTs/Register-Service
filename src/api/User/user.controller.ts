@@ -26,7 +26,7 @@ export class UserController {
     description: 'Bad Request',
     type: BadRequestResponse,
   })
-  @ApiOperation({ summary: 'Creates a new Announcement' })
+  @ApiOperation({ summary: 'Registers a user' })
   async create(@Body() body: CreateUserDto): Promise<User> {
     return this.userService.createUser(body);
   }

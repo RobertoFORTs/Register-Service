@@ -5,7 +5,6 @@ import User from "src/domain/user/entity/user";
 import { Cron, CronExpression } from '@nestjs/schedule';
 import * as nodemailer from "nodemailer";
 import axios from "axios";
-import { report } from "process";
 @Injectable()
 export class MailService {
   constructor(
@@ -100,23 +99,35 @@ export class MailService {
       throw new Error("Error fetching weather report.");
     }
 
+    const formatReportData = (report) => {
+      return `
+    Data e Hora: ${new Date(report.dateTime).toLocaleString()}
+    Temperatura: ${(report.temperature - 273.15).toFixed(2)}°C
+    Umidade: ${report.humidity}%
+    Velocidade do Vento: ${report.windSpeed} m/s
+    Descrição do Clima: ${report.climateDescription}
+    Localização: ${report.location._city}, ${report.location._state}, ${report.location._country}
+    Clima: ${report.climate}
+      `.trim();
+    };
+
     const now = new Date();
     const mail = new Mail(user.getId, now, user.getFrequency);
 
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      service: "hotmail",
       auth: {
-        user: "testebobvini123@gmail.com",
-        pass: "bobvini123@",
+        user: "bobvinitads@hotmail.com",
+        pass: "tadsemail321",
       }
     });
 
 
     const mailOptions = {
-      from: '"NewsLetter Wheater" <testebobvini123@gmail.com>',
+      from: '"NewsLetter Wheater" <bobvinitads@hotmail.com>',
       to: user.getEmail, 
       subject: "Relatório do Tempo", 
-      text: `Aqui estão os dados do tempo: ${reportData}`, 
+      text: `Aqui estão os dados do tempo: ${formatReportData(reportData)}`, 
     };
 
     try {
